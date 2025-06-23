@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const PointSchema = require('./utils/PointSchema')
 
 const DevSchema = new mongoose.Schema({
     name: {
@@ -22,23 +23,9 @@ const DevSchema = new mongoose.Schema({
         required: true,
     },
     location: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            default: 'Point',
-        },
-        coordinates: {
-            type: [Number],
-            index: '2dsphere',
-        },
-    },
-}, {
-    toJSON: {
-        virtuals: true,
-    },
-    toObject: {
-        virtuals: true,
-    },
+        type: PointSchema,
+        index: '2dsphere',
+    }
 })
 
 module.exports = mongoose.model('Dev', DevSchema)
